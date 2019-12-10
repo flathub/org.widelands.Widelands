@@ -89,11 +89,6 @@ modules:
         commit: 65f086f59ad477fb89dd7e4589e7def270560914
         # Need full git history to generate revision number
         disable-shallow-clone: true
-      # Move XDG-related stuff from debian/rules to xdg/CMakeLists.txt
-      # https://github.com/widelands/widelands/pull/3547
-      - type: patch
-        path: widelands-build20-xdg-cmake.patch
-        use-git: true
       # https://github.com/widelands/widelands/issues/3558
       - type: shell
         commands:
