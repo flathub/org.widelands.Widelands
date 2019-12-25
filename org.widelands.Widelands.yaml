@@ -86,7 +86,7 @@ modules:
     sources:
       - type: git
         url: https://github.com/widelands/widelands.git
-        commit: 65f086f59ad477fb89dd7e4589e7def270560914
+        commit: 92692761b9416588a79c6294acf60c3c06d882fa
         # Need full git history to generate revision number
         disable-shallow-clone: true
       # https://github.com/widelands/widelands/issues/3558
