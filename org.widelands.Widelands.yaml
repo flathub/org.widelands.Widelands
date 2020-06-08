@@ -36,19 +36,6 @@ modules:
   - shared-modules/glew/glew.json
   - shared-modules/python2.7/python-2.7.json
 
-  - name: boost
-    buildsystem: simple
-    sources:
-      # Boost >= 1.70 is not supported yet
-      # https://www.widelands.org/forum/topic/4513/?page=1#post-27901
-      # wl_include_system_directories Function invoked with incorrect arguments for function named: wl_include_system_directories
-      - type: archive
-        url: https://dl.bintray.com/boostorg/release/1.69.0/source/boost_1_69_0.tar.bz2
-        sha256: 8f32d4617390d1c2d16f26a27ab60d97807b35440d45891fa340fc2648b04406
-    build-commands:
-      - ./bootstrap.sh --prefix="${FLATPAK_DEST}" --with-libraries=system,regex,test;
-      - ./b2 -j"${FLATPAK_BUILDER_N_JOBS}" install;
-
   - name: xmlstarlet
     config-opts:
       - --disable-static-libs
@@ -87,7 +74,7 @@ modules:
     sources:
       - type: git
         url: https://github.com/widelands/widelands.git
-        commit: e745788804b90e2bb6f98ddf6f934089f3250aa9
+        commit: 7747702abc474351e587d70fb60b3be7880cf214
         # Need full git history to generate revision number
         disable-shallow-clone: true
       # Generate a new version number with the git revision
