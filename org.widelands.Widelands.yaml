@@ -48,7 +48,7 @@ modules:
     config-opts:
       - -DCMAKE_BUILD_TYPE=Release
       # Set version string without disable-shallow-clone: true
-      - -DWL_VERSION="1.0~git25303[857dd74@master]"
+      - -DWL_VERSION="1.0~git25318[da98078@master]"
       - -DCMAKE_INSTALL_PREFIX=/app/bin
       - -DWL_INSTALL_BASEDIR=/app/share/widelands
       - -DWL_INSTALL_DATADIR=/app/share/widelands
@@ -65,7 +65,7 @@ modules:
     sources:
       - type: git
         url: https://github.com/widelands/widelands.git
-        commit: 857dd74595c6da8885fcfd7d6f5f32037f2c3a73
+        commit: da980781ddf3adc230acea439461594ec12e8b54
       # Fix issues with xdg/org.widelands.Widelands.appdata.xml:
       #  * Set version
       #  * Remove all other releases from the AppData file, because
