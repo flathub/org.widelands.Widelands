@@ -1,7 +1,7 @@
 diff -u widelands.orig/xdg/org.widelands.Widelands.appdata.xml.stub widelands/xdg/org.widelands.Widelands.appdata.xml.stub
 --- widelands.orig/xdg/org.widelands.Widelands.appdata.xml.stub
 +++ widelands/xdg/org.widelands.Widelands.appdata.xml.stub
-@@ -29,35 +29,13 @@
+@@ -29,36 +29,13 @@
    </screenshots>
    <update_contact>widelands-public_at_lists.sourceforge.net</update_contact>
    <provides>
@@ -12,6 +12,7 @@ diff -u widelands.orig/xdg/org.widelands.Widelands.appdata.xml.stub widelands/xd
    </provides>
    <launchable type="desktop-id">org.widelands.Widelands.desktop</launchable>
    <releases>
+-    <release date="2021-06-15" version="1.0"/>
 -    <release date="2020-07-18" version="Build 21"/>
 -    <release date="2019-05-02" version="Build 20"/>
 -    <release date="2016-11-11" version="Build 19"/>
@@ -34,7 +35,7 @@ diff -u widelands.orig/xdg/org.widelands.Widelands.appdata.xml.stub widelands/xd
 -    <release date="2002-09-07" version="Build 3"/>
 -    <release date="2002-09-03" version="Build 2"/>
 -    <release date="2002-08-27" version="Build 1"/>
-+    <release date="2021-06-08" version="1.0~rc1"/>
++    <release date="2021-08-04" version="1.1~git25418[5b6e9ba@master]"/>
    </releases>
     LANGUAGES_HOOK
    <url type="bugtracker">https://github.com/widelands/widelands/issues</url>
