@@ -48,6 +48,8 @@ modules:
     config-opts:
       - -DCMAKE_BUILD_TYPE=Release
       # Set version string without disable-shallow-clone: true
+      # (do not quote, flatpak-builder will quote it, and if we quote it too,
+      # then datadirversion will have quotes, and be incompatible with binary)
       - -DWL_VERSION=1.1~git25418[5b6e9ba@master]
       - -DCMAKE_INSTALL_PREFIX=/app/bin
       - -DWL_INSTALL_BASEDIR=/app/share/widelands
