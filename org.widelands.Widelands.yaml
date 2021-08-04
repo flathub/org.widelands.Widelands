@@ -48,7 +48,7 @@ modules:
     config-opts:
       - -DCMAKE_BUILD_TYPE=Release
       # Set version string without disable-shallow-clone: true
-      - -DWL_VERSION="1.1~git25418[5b6e9ba@master]"
+      - -DWL_VERSION=1.1~git25418[5b6e9ba@master]
       - -DCMAKE_INSTALL_PREFIX=/app/bin
       - -DWL_INSTALL_BASEDIR=/app/share/widelands
       - -DWL_INSTALL_DATADIR=/app/share/widelands
