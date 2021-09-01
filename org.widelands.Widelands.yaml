@@ -1,7 +1,7 @@
 app-id: org.widelands.Widelands
 default-branch: beta
 runtime: org.freedesktop.Platform
-runtime-version: '20.08'
+runtime-version: '21.08'
 sdk: org.freedesktop.Sdk
 command: widelands
 desktop-file-name-suffix: ' (Beta)'
@@ -32,12 +32,9 @@ modules:
   - name: boost
     buildsystem: simple
     sources:
-      # Boost 1.73 is supported since Build 21~r24600 (75b494626310dd5ea04d2b2f0d63b1581a97da3c)
-      # https://github.com/widelands/widelands/issues/3905
-      # https://github.com/widelands/widelands/pull/3907
       - type: archive
-        url: https://boostorg.jfrog.io/artifactory/main/release/1.76.0/source/boost_1_76_0.tar.bz2
-        sha256: f0397ba6e982c4450f27bf32a2a83292aba035b827a5623a14636ea583318c41
+        url: https://boostorg.jfrog.io/artifactory/main/release/1.77.0/source/boost_1_77_0.tar.bz2
+        sha256: fc9f85fc030e233142908241af7a846e60630aa7388de9a5fafb1f3a26840854
     build-commands:
       - ./bootstrap.sh --prefix="${FLATPAK_DEST}" --with-libraries=system,regex,test;
       - ./b2 -j"${FLATPAK_BUILDER_N_JOBS}" install;
@@ -50,7 +47,7 @@ modules:
       # Set version string without disable-shallow-clone: true
       # (do not quote, flatpak-builder will quote it, and if we quote it too,
       # then datadirversion will have quotes, and be incompatible with binary)
-      - -DWL_VERSION=1.1~git25418[5b6e9ba@master]
+      - -DWL_VERSION=1.1~git25444[bfda7cf@master]
       - -DCMAKE_INSTALL_PREFIX=/app/bin
       - -DWL_INSTALL_BASEDIR=/app/share/widelands
       - -DWL_INSTALL_DATADIR=/app/share/widelands
@@ -68,7 +65,7 @@ modules:
       # this is used for development versions:
       - type: git
         url: https://github.com/widelands/widelands.git
-        commit: 5b6e9ba63d4b083015f5c8f7360b96e38f607a04
+        commit: bfda7cf51750e4828662ba8c466156db5d312312
 
       # for rc, use archive:
       # - type: archive
