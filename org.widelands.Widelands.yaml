@@ -47,7 +47,7 @@ modules:
       # Set version string without disable-shallow-clone: true
       # (do not quote, flatpak-builder will quote it, and if we quote it too,
       # then datadirversion will have quotes, and be incompatible with binary)
-      - -DWL_VERSION=1.1~git25444[bfda7cf@master]
+      - -DWL_VERSION=1.1~git25480[17e0f5a@master]
       - -DCMAKE_INSTALL_PREFIX=/app/bin
       - -DWL_INSTALL_BASEDIR=/app/share/widelands
       - -DWL_INSTALL_DATADIR=/app/share/widelands
@@ -65,7 +65,7 @@ modules:
       # this is used for development versions:
       - type: git
         url: https://github.com/widelands/widelands.git
-        commit: bfda7cf51750e4828662ba8c466156db5d312312
+        commit: 17e0f5adf731ba8c3a9eff2fbbe098169b6b9fc6
 
       # for rc, use archive:
       # - type: archive
@@ -74,7 +74,7 @@ modules:
 
       # Fix issues with xdg/org.widelands.Widelands.appdata.xml:
       #  * Set version
-      #  * Remove all other releases from the AppData file, because
+      #  * Remove releases before Build 10 from the AppData file, because
       #    appstream-glib is broken, and the file does not pass validation
       #    https://github.com/hughsie/appstream-glib/pull/272#issuecomment-439812546
       #  * Remove the binary from provides, because flatpak doesn't export it.
