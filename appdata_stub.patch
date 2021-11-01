@@ -11,24 +11,7 @@
    </provides>
    <launchable type="desktop-id">org.widelands.Widelands.desktop</launchable>
    <releases>
-+    <release date="2021-10-13" version="1.1~git25480[17e0f5a@master]"/>
++    <release date="2021-10-13" version="1.1~git25496[188524b@master]"/>
      <release date="2021-06-15" version="1.0"/>
-     <release date="2020-07-18" version="Build 21"/>
-     <release date="2019-05-02" version="Build 20"/>
-@@ -49,16 +49,6 @@
-     <release date="2008-04-06" version="Build 12"/>
-     <release date="2007-09-12" version="Build 11"/>
-     <release date="2007-03-20" version="Build 10"/>
--    <release date="2005-12-05" version="Build 9half"/>
--    <release date="2005-01-10" version="Build 9"/>
--    <release date="2004-09-18" version="Build 8"/>
--    <release date="2004-08-06" version="Build 7"/>
--    <release date="2003-10-18" version="Build 6"/>
--    <release date="2003-09-05" version="Build 5"/>
--    <release date="2003-01-09" version="Build 4"/>
--    <release date="2002-09-07" version="Build 3"/>
--    <release date="2002-09-03" version="Build 2"/>
--    <release date="2002-08-27" version="Build 1"/>
-   </releases>
-    LANGUAGES_HOOK
-   <url type="bugtracker">https://github.com/widelands/widelands/issues</url>
+     <release date="2020-07-18" version="~Build 21"/>
+     <release date="2019-05-02" version="~Build 20"/>

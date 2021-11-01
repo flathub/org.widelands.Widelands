@@ -47,7 +47,7 @@ modules:
       # Set version string without disable-shallow-clone: true
       # (do not quote, flatpak-builder will quote it, and if we quote it too,
       # then datadirversion will have quotes, and be incompatible with binary)
-      - -DWL_VERSION=1.1~git25480[17e0f5a@master]
+      - -DWL_VERSION=1.1~git25496[188524b@master]
       - -DCMAKE_INSTALL_PREFIX=/app/bin
       - -DWL_INSTALL_BASEDIR=/app/share/widelands
       - -DWL_INSTALL_DATADIR=/app/share/widelands
@@ -65,26 +65,18 @@ modules:
       # this is used for development versions:
       - type: git
         url: https://github.com/widelands/widelands.git
-        commit: 17e0f5adf731ba8c3a9eff2fbbe098169b6b9fc6
+        commit: 188524b72ff9fa6485b9e0fd63b988c3dd363cb2
 
       # for rc, use archive:
       # - type: archive
       #   url: https://github.com/widelands/widelands/archive/refs/tags/v1.0-rc1.tar.gz
       #   sha256: e6e85c9daef451ab99cfbbfb9480eef6fddc51728d7283d13ae151d524293322
 
-      # Fix issues with xdg/org.widelands.Widelands.appdata.xml:
+      # Patch xdg/org.widelands.Widelands.appdata.xml:
       #  * Set version
-      #  * Remove releases before Build 10 from the AppData file, because
-      #    appstream-glib is broken, and the file does not pass validation
-      #    https://github.com/hughsie/appstream-glib/pull/272#issuecomment-439812546
       #  * Remove the binary from provides, because flatpak doesn't export it.
       - type: patch
         path: appdata_stub.patch
-      # use appstream-util instead of appstreamcli to validate file
-      # (appstream-util is available in freedesktop.org runtime,
-      # appstreamcli would be an extra dependency)
-      - type: patch
-        path: appstream-util.patch
       # regenerate appdata.xml with the fixes
       - type: shell
         commands:
