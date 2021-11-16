@@ -36,7 +36,7 @@ modules:
         url: https://boostorg.jfrog.io/artifactory/main/release/1.77.0/source/boost_1_77_0.tar.bz2
         sha256: fc9f85fc030e233142908241af7a846e60630aa7388de9a5fafb1f3a26840854
     build-commands:
-      - ./bootstrap.sh --prefix="${FLATPAK_DEST}" --with-libraries=system,regex,test;
+      - ./bootstrap.sh --prefix="${FLATPAK_DEST}" --with-libraries=regex,test;
       - ./b2 -j"${FLATPAK_BUILDER_N_JOBS}" install;
 
   - name: Widelands
@@ -44,10 +44,10 @@ modules:
     builddir: true
     config-opts:
       - -DCMAKE_BUILD_TYPE=Release
-      # Set version string without disable-shallow-clone: true
+      # Set version string without 'disable-shallow-clone: true'
       # (do not quote, flatpak-builder will quote it, and if we quote it too,
       # then datadirversion will have quotes, and be incompatible with binary)
-      - -DWL_VERSION=1.1~git25496[188524b@master]
+      - -DWL_VERSION=1.1~git25519[17705ed@master]
       - -DCMAKE_INSTALL_PREFIX=/app/bin
       - -DWL_INSTALL_BASEDIR=/app/share/widelands
       - -DWL_INSTALL_DATADIR=/app/share/widelands
@@ -65,7 +65,7 @@ modules:
       # this is used for development versions:
       - type: git
         url: https://github.com/widelands/widelands.git
-        commit: 188524b72ff9fa6485b9e0fd63b988c3dd363cb2
+        commit: 17705ed8390c7d6654ddc3aa6dcd1a1b80270d39
 
       # for rc, use archive:
       # - type: archive
@@ -74,10 +74,10 @@ modules:
 
       # Patch xdg/org.widelands.Widelands.appdata.xml:
       #  * Set version
-      #  * Remove the binary from provides, because flatpak doesn't export it.
+      #  * Remove the binary from provides, because flatpak doesn't export it
       - type: patch
         path: appdata_stub.patch
-      # regenerate appdata.xml with the fixes
+      # regenerate appdata.xml with the changes
       - type: shell
         commands:
         - |
