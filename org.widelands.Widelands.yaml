@@ -36,7 +36,7 @@ modules:
         url: https://boostorg.jfrog.io/artifactory/main/release/1.77.0/source/boost_1_77_0.tar.bz2
         sha256: fc9f85fc030e233142908241af7a846e60630aa7388de9a5fafb1f3a26840854
     build-commands:
-      - ./bootstrap.sh --prefix="${FLATPAK_DEST}" --with-libraries=system,regex;
+      - ./bootstrap.sh --prefix="${FLATPAK_DEST}" --with-libraries=system,regex,test;
       - ./b2 -j"${FLATPAK_BUILDER_N_JOBS}" install;
 
   - name: Widelands
