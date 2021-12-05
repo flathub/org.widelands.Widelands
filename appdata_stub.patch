@@ -11,7 +11,7 @@
    </provides>
    <launchable type="desktop-id">org.widelands.Widelands.desktop</launchable>
    <releases>
-+    <release date="2021-11-16" version="1.1~git25519[17705ed@master]"/>
++    <release date="2021-12-04" version="1.1~git25545[4bcc4e3@master]"/>
      <release date="2021-06-15" version="1.0"/>
      <release date="2020-07-18" version="~Build 21"/>
      <release date="2019-05-02" version="~Build 20"/>

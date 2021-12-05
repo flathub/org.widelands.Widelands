@@ -36,7 +36,7 @@ modules:
         url: https://boostorg.jfrog.io/artifactory/main/release/1.77.0/source/boost_1_77_0.tar.bz2
         sha256: fc9f85fc030e233142908241af7a846e60630aa7388de9a5fafb1f3a26840854
     build-commands:
-      - ./bootstrap.sh --prefix="${FLATPAK_DEST}" --with-libraries=system,regex,test;
+      - ./bootstrap.sh --prefix="${FLATPAK_DEST}" --with-libraries=system,regex;
       - ./b2 -j"${FLATPAK_BUILDER_N_JOBS}" install;
 
   - name: Widelands
@@ -44,10 +44,11 @@ modules:
     builddir: true
     config-opts:
       - -DCMAKE_BUILD_TYPE=Release
+      - -DOPTION_BUILD_WEBSITE_TOOLS=OFF
       # Set version string without 'disable-shallow-clone: true'
       # (do not quote, flatpak-builder will quote it, and if we quote it too,
       # then datadirversion will have quotes, and be incompatible with binary)
-      - -DWL_VERSION=1.1~git25519[17705ed@master]
+      - -DWL_VERSION=1.1~git25545[4bcc4e3@master]
       - -DCMAKE_INSTALL_PREFIX=/app/bin
       - -DWL_INSTALL_BASEDIR=/app/share/widelands
       - -DWL_INSTALL_DATADIR=/app/share/widelands
@@ -58,7 +59,6 @@ modules:
       # https://www.widelands.org/forum/topic/1343/?page=3#post-9857
       - -DGLEW_LIBRARY:FILEPATH=/app/lib/libGLEW.a
       - -DOPENGL_glu_LIBRARY=/app/lib/libGLU.a
-      - -DOPTION_BUILD_WEBSITE_TOOLS=OFF
     build-options:
       ldflags: -lGL
     sources:
