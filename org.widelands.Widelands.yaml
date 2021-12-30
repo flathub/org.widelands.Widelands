@@ -21,65 +21,81 @@ finish-args:
 cleanup:
   - /include
   - /lib/pkgconfig
-  - /share/man
   - '*.la'
   - '*.a'
-  - /lib/cmake
 modules:
   - shared-modules/glu/glu-9.json
   - shared-modules/glew/glew.json
 
-  - name: boost
-    buildsystem: simple
+  - name: asio
     sources:
       - type: archive
-        url: https://boostorg.jfrog.io/artifactory/main/release/1.77.0/source/boost_1_77_0.tar.bz2
-        sha256: fc9f85fc030e233142908241af7a846e60630aa7388de9a5fafb1f3a26840854
+        url: https://downloads.sourceforge.net/project/asio/asio/1.20.0%20%28Stable%29/asio-1.20.0.tar.bz2
+        sha256: 204374d3cadff1b57a63f4c343cbadcee28374c072dc04b549d772dbba9f650c
+    # This is to skip the 'make' step (building the examples), because
+    # I couldn't figure out how to do it using the default buildsystem
+    buildsystem: simple
     build-commands:
-      - ./bootstrap.sh --prefix="${FLATPAK_DEST}" --with-libraries=system,regex,test;
-      - ./b2 -j"${FLATPAK_BUILDER_N_JOBS}" install;
+      - |
+        # This all could be just a 'cp -a', but let's have the advanced
+        # error handling of GNU 'install'
+        ./configure --prefix=${FLATPAK_DEST}
+        make install-data
+
+
+  ####### Widelands #######
 
   - name: Widelands
+    build-options:
+      env:
+        # This is needed to set the version string without
+        # 'disable-shallow-clone: true'
+        # (use utils/detect_revision.py in a complete git tree to get it)
+        WL_VERSION: 1.1~git25568[7841615@master]
+        WL_RELEASE_DATE: 2021-12-30
+      ldflags: -lGL
+    sources:
+      # Use this for development versions:
+      - type: git
+        url: https://github.com/widelands/widelands.git
+        commit: 7841615f6a955b941058acc5d9deb98e6e1b2dc0
+
+      # Use this for RC:
+      # - type: archive
+      #   url: https://github.com/widelands/widelands/archive/refs/tags/v1.0-rc1.tar.gz
+      #   sha256: e6e85c9daef451ab99cfbbfb9480eef6fddc51728d7283d13ae151d524293322
+
+      - type: shell
+        commands:
+        - |
+          # Set version string
+          echo "$WL_VERSION" >WL_RELEASE
+
+          # Modify xdg/org.widelands.Widelands.appdata.xml.stub:
+          #  * Set version
+          #  * Remove the binary from provides, because flatpak doesn't export it
+          echo "/<releases>/a" >appdata_stub.edcmd
+          echo "    <release date=\"${WL_RELEASE_DATE}\" version=\"${WL_VERSION}\"/>" >>appdata_stub.edcmd
+          echo "." >>appdata_stub.edcmd
+          echo "/<binary>/d" >>appdata_stub.edcmd
+          echo wq >>appdata_stub.edcmd
+          ed xdg/org.widelands.Widelands.appdata.xml.stub <appdata_stub.edcmd
+
+          # Regenerate appdata.xml with the changes
+          utils/update_appdata.py
+
     buildsystem: cmake-ninja
     builddir: true
     config-opts:
       - -DCMAKE_BUILD_TYPE=Release
       - -DOPTION_BUILD_WEBSITE_TOOLS=OFF
-      # Set version string without 'disable-shallow-clone: true'
-      # (do not quote, flatpak-builder will quote it, and if we quote it too,
-      # then datadirversion will have quotes, and be incompatible with binary)
-      - -DWL_VERSION=1.1~git25545[4bcc4e3@master]
       - -DCMAKE_INSTALL_PREFIX=/app/bin
       - -DWL_INSTALL_BASEDIR=/app/share/widelands
       - -DWL_INSTALL_DATADIR=/app/share/widelands
-      - -DBOOST_ROOT=/app
       - -DGLEW_ROOT=/app
       - -DGLEW_INCLUDE_DIR=/app/include/GL
       # Fix an issue with linking libs
       # https://www.widelands.org/forum/topic/1343/?page=3#post-9857
       - -DGLEW_LIBRARY:FILEPATH=/app/lib/libGLEW.a
       - -DOPENGL_glu_LIBRARY=/app/lib/libGLU.a
-    build-options:
-      ldflags: -lGL
-    sources:
-      # this is used for development versions:
-      - type: git
-        url: https://github.com/widelands/widelands.git
-        commit: 4bcc4e387183834ab062d6cfec608fa45f547628
-
-      # for rc, use archive:
-      # - type: archive
-      #   url: https://github.com/widelands/widelands/archive/refs/tags/v1.0-rc1.tar.gz
-      #   sha256: e6e85c9daef451ab99cfbbfb9480eef6fddc51728d7283d13ae151d524293322
-
-      # Patch xdg/org.widelands.Widelands.appdata.xml:
-      #  * Set version
-      #  * Remove the binary from provides, because flatpak doesn't export it
-      - type: patch
-        path: appdata_stub.patch
-      # regenerate appdata.xml with the changes
-      - type: shell
-        commands:
-        - |
-          utils/update_appdata.py
 
