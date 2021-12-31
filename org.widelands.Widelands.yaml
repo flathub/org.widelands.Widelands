@@ -51,14 +51,18 @@ modules:
         # This is needed to set the version string without
         # 'disable-shallow-clone: true'
         # (use utils/detect_revision.py in a complete git tree to get it)
-        WL_VERSION: 1.1~git25568[7841615@master]
-        WL_RELEASE_DATE: 2021-12-30
+
+        ### PR branch for bugfix, only used for test build ###
+        WL_VERSION: 1.1~git25570[4348929@5177-signed-char]
+        WL_RELEASE_DATE: 2021-12-31
       ldflags: -lGL
     sources:
       # Use this for development versions:
       - type: git
         url: https://github.com/widelands/widelands.git
-        commit: 7841615f6a955b941058acc5d9deb98e6e1b2dc0
+
+        ### PR branch for bugfix, only used for test build ###
+        commit: 4348929d1edab3e21640330cc1624ad7e1dd2997
 
       # Use this for RC:
       # - type: archive
