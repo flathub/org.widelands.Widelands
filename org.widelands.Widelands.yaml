@@ -98,5 +98,7 @@ modules:
       # Fix an issue with linking libs
       # https://www.widelands.org/forum/topic/1343/?page=3#post-9857
       - -DGLEW_LIBRARY:FILEPATH=/app/lib/libGLEW.a
+      # cmake ignores CPLUS_INCLUDE_PATH where Asio is installed
+      - -DCMAKE_INCLUDE_PATH=${CPLUS_INCLUDE_PATH}
       - -DOPENGL_glu_LIBRARY=/app/lib/libGLU.a
 
