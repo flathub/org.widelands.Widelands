@@ -90,7 +90,8 @@ modules:
     config-opts:
       - -DCMAKE_BUILD_TYPE=Release
       - -DOPTION_BUILD_WEBSITE_TOOLS=OFF
-      - -DCMAKE_INSTALL_PREFIX=/app/bin
+      - -DCMAKE_INSTALL_PREFIX=/app
+      - -DWL_INSTALL_BINDIR=/app/bin
       - -DWL_INSTALL_BASEDIR=/app/share/widelands
       - -DWL_INSTALL_DATADIR=/app/share/widelands
       - -DGLEW_ROOT=/app
