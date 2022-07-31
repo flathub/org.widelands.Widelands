@@ -31,8 +31,8 @@ modules:
   - name: asio
     sources:
       - type: archive
-        url: https://downloads.sourceforge.net/project/asio/asio/1.22.1%20%28Stable%29/asio-1.22.1.tar.bz2
-        sha256: 6874d81a863d800ee53456b1cafcdd1abf38bbbf54ecf295056b053c0d7115ce
+        url: https://downloads.sourceforge.net/project/asio/asio/1.22.2%20%28Stable%29/asio-1.22.2.tar.bz2
+        sha256: 776bb781eee8022a3eed71de28f05bf8ba09741db2e57ad8cc420aa0884cbc6c
     # This is to skip the 'make' step (building the examples), because
     # I couldn't figure out how to do it using the default buildsystem
     buildsystem: simple
@@ -59,7 +59,7 @@ modules:
       # Use this for development versions:
       - type: git
         url: https://github.com/widelands/widelands.git
-        commit: 5b649c4b1192f9758982b2af04a2803f9563ae9e
+        commit: 99ccb319debb0490c1b22ae2e6175a5117cb5d17
 
       # Use this for RC:
       # - type: archive
