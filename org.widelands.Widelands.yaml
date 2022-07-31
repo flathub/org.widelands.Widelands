@@ -52,8 +52,8 @@ modules:
         # This is needed to set the version string without
         # 'disable-shallow-clone: true'
         # (use utils/detect_revision.py in a complete git tree to get it)
-        WL_VERSION: 1.1~git25805 (5b649c4@master)
-        WL_RELEASE_DATE: 2022-07-09
+        WL_VERSION: 1.1~git25823 (99ccb31@master)
+        WL_RELEASE_DATE: 2022-07-31
       ldflags: -lGL
     sources:
       # Use this for development versions:
