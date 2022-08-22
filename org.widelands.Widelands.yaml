@@ -1,7 +1,7 @@
 app-id: org.widelands.Widelands
 default-branch: beta
 runtime: org.freedesktop.Platform
-runtime-version: '21.08'
+runtime-version: '22.08Beta'
 sdk: org.freedesktop.Sdk
 command: widelands
 desktop-file-name-suffix: ' (Beta)'
@@ -31,8 +31,8 @@ modules:
   - name: asio
     sources:
       - type: archive
-        url: https://downloads.sourceforge.net/project/asio/asio/1.22.2%20%28Stable%29/asio-1.22.2.tar.bz2
-        sha256: 776bb781eee8022a3eed71de28f05bf8ba09741db2e57ad8cc420aa0884cbc6c
+        url: https://downloads.sourceforge.net/project/asio/asio/1.24.0%20%28Stable%29/asio-1.24.0.tar.bz2
+        sha256: 8976812c24a118600f6fcf071a20606630a69afe4c0abee3b0dea528e682c585
     # This is to skip the 'make' step (building the examples), because
     # I couldn't figure out how to do it using the default buildsystem
     buildsystem: simple
@@ -52,14 +52,14 @@ modules:
         # This is needed to set the version string without
         # 'disable-shallow-clone: true'
         # (use utils/detect_revision.py in a complete git tree to get it)
-        WL_VERSION: 1.1~git25831 (f61f1e4@master)
-        WL_RELEASE_DATE: 2022-08-04
+        WL_VERSION: 1.1~git25855 (c0c0850@master)
+        WL_RELEASE_DATE: 2022-08-22
       ldflags: -lGL
     sources:
       # Use this for development versions:
       - type: git
         url: https://github.com/widelands/widelands.git
-        commit: f61f1e4888f065807dad151dae75fb7f62843531
+        commit: c0c085064ca643df814de11774b4d02d1dba2596
 
       # Use this for RC:
       # - type: archive
