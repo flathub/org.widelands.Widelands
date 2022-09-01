@@ -1,8 +1,7 @@
 app-id: org.widelands.Widelands
 default-branch: beta
 runtime: org.freedesktop.Platform
-runtime-version: '21.08'
-#runtime-version: '22.08beta'
+runtime-version: '22.08'
 sdk: org.freedesktop.Sdk
 command: widelands
 desktop-file-name-suffix: ' (Beta)'
@@ -53,14 +52,14 @@ modules:
         # This is needed to set the version string without
         # 'disable-shallow-clone: true'
         # (use utils/detect_revision.py in a complete git tree to get it)
-        WL_VERSION: 1.1~git25855 (c0c0850@master)
-        WL_RELEASE_DATE: 2022-08-22
+        WL_VERSION: 1.1~git25862 (cdb5ccf@master)
+        WL_RELEASE_DATE: 2022-09-01
       ldflags: -lGL
     sources:
       # Use this for development versions:
       - type: git
         url: https://github.com/widelands/widelands.git
-        commit: c0c085064ca643df814de11774b4d02d1dba2596
+        commit: cdb5ccff161279a5d706ea402f2033b2331f5965
 
       # Use this for RC:
       # - type: archive
