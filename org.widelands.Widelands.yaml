@@ -1,10 +1,11 @@
 app-id: org.widelands.Widelands
 default-branch: beta
 runtime: org.freedesktop.Platform
-runtime-version: '21.08'
-# segfaults on game start with 22.08
-# runtime-version: '22.08'
+runtime-version: '22.08'
 sdk: org.freedesktop.Sdk
+# SDK 22.08 has GCC 12.1 with major bugs, so we use clang instead
+sdk-extensions:
+  - org.freedesktop.Sdk.Extension.llvm14
 command: widelands
 desktop-file-name-suffix: ' (Beta)'
 tags:
@@ -56,6 +57,11 @@ modules:
         # (use utils/detect_revision.py in a complete git tree to get it)
         WL_VERSION: 1.1~git25864 (b301eaa@master)
         WL_RELEASE_DATE: 2022-09-03
+
+        # Use clang instead of buggy version of GCC
+        CC:  /usr/lib/sdk/llvm14/bin/clang
+        CXX: /usr/lib/sdk/llvm14/bin/clang++
+
       ldflags: -lGL
     sources:
       # Use this for development versions:
