@@ -94,6 +94,10 @@ modules:
           # Regenerate appdata.xml with the changes
           utils/update_appdata.py
 
+      # test fix for segfault with SDL-image 2.6.2
+      - type: patch
+        path: terrain_minimap_avg_colour.patch
+
     buildsystem: cmake-ninja
     builddir: true
     config-opts:
