@@ -96,7 +96,7 @@ modules:
 
       # test fix for segfault with SDL-image 2.6.2
       - type: patch
-        path: terrain_minimap_avg_colour.patch
+        path: terrain_minimap_colour.patch
 
     buildsystem: cmake-ninja
     builddir: true
