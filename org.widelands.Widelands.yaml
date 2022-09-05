@@ -3,9 +3,9 @@ default-branch: beta
 runtime: org.freedesktop.Platform
 runtime-version: '22.08'
 sdk: org.freedesktop.Sdk
-# SDK 22.08 has GCC 12.1 with major bugs, so we use clang instead
-sdk-extensions:
-  - org.freedesktop.Sdk.Extension.llvm14
+# if clang is desired instead of GCC
+# sdk-extensions:
+#   - org.freedesktop.Sdk.Extension.llvm14
 command: widelands
 desktop-file-name-suffix: ' (Beta)'
 tags:
@@ -55,19 +55,19 @@ modules:
         # This is needed to set the version string without
         # 'disable-shallow-clone: true'
         # (use utils/detect_revision.py in a complete git tree to get it)
-        WL_VERSION: 1.1~git25864 (b301eaa@master)
-        WL_RELEASE_DATE: 2022-09-03
+        WL_VERSION: 1.1~git25867 (5f8cfab@sdl-image-262-fix)
+        WL_RELEASE_DATE: 2022-09-05
 
-        # Use clang instead of buggy version of GCC
-        CC:  /usr/lib/sdk/llvm14/bin/clang
-        CXX: /usr/lib/sdk/llvm14/bin/clang++
+        # Use clang instead of GCC
+        # CC:  /usr/lib/sdk/llvm14/bin/clang
+        # CXX: /usr/lib/sdk/llvm14/bin/clang++
 
       ldflags: -lGL
     sources:
       # Use this for development versions:
       - type: git
         url: https://github.com/widelands/widelands.git
-        commit: b301eaaafd793d95966af1bdf3480fae8bbcffee
+        commit: 5f8cfab7514824fbe76a1570cf9d93ac61a695f5
 
       # Use this for RC:
       # - type: archive
@@ -93,10 +93,6 @@ modules:
 
           # Regenerate appdata.xml with the changes
           utils/update_appdata.py
-
-      # test fix for segfault with SDL-image 2.6.2
-      - type: patch
-        path: terrain_minimap_colour.patch
 
     buildsystem: cmake-ninja
     builddir: true
