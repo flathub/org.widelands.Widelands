@@ -1,6 +1,7 @@
 app-id: org.widelands.Widelands
 runtime: org.freedesktop.Platform
-runtime-version: '20.08'
+# version 22.08 has too many problems for Widelands
+runtime-version: '21.08'
 sdk: org.freedesktop.Sdk
 command: widelands
 finish-args:
@@ -20,62 +21,64 @@ cleanup:
   - /share/man
   - '*.la'
   - '*.a'
-  - /lib/cmake
 modules:
   - shared-modules/glu/glu-9.json
   - shared-modules/glew/glew.json
 
-  - name: boost
-    buildsystem: simple
+  - name: asio
     sources:
-      # Boost 1.73 is supported since Build 21~r24600 (75b494626310dd5ea04d2b2f0d63b1581a97da3c)
-      # https://github.com/widelands/widelands/issues/3905
-      # https://github.com/widelands/widelands/pull/3907
       - type: archive
-        url: https://boostorg.jfrog.io/artifactory/main/release/1.76.0/source/boost_1_76_0.tar.bz2
-        sha256: f0397ba6e982c4450f27bf32a2a83292aba035b827a5623a14636ea583318c41
+        url: https://downloads.sourceforge.net/project/asio/asio/1.24.0%20%28Stable%29/asio-1.24.0.tar.bz2
+        sha256: 8976812c24a118600f6fcf071a20606630a69afe4c0abee3b0dea528e682c585
+    # This is to skip the 'make' step (building the examples), because
+    # I couldn't figure out how to do it using the default buildsystem
+    buildsystem: simple
     build-commands:
-      - ./bootstrap.sh --prefix="${FLATPAK_DEST}" --with-libraries=system,regex,test;
-      - ./b2 -j"${FLATPAK_BUILDER_N_JOBS}" install;
+      - |
+        # This all could be just a 'cp -a', but let's have the advanced
+        # error handling of GNU 'install'
+        ./configure --prefix=${FLATPAK_DEST}
+        make install-data
+
+
+  ####### Widelands #######
 
   - name: Widelands
+    sources:
+      - type: archive
+        url: https://github.com/widelands/widelands/archive/refs/tags/v1.1.tar.gz
+        sha256: ????????????????????????????????????????????????????????????????
+
+      - type: shell
+        commands:
+        - |
+          # Modify xdg/org.widelands.Widelands.appdata.xml.stub:
+          #  * Remove the binary from provides, because flatpak doesn't export it
+          ed xdg/org.widelands.Widelands.appdata.xml.stub <<EOF
+          /<binary>/d
+          wq
+          EOF
+
+          # Regenerate appdata.xml with the changes
+          utils/update_appdata.py
+
     buildsystem: cmake-ninja
     builddir: true
     config-opts:
       - -DCMAKE_BUILD_TYPE=Release
-      - -DCMAKE_INSTALL_PREFIX=/app/bin
+      - -DOPTION_BUILD_WEBSITE_TOOLS=OFF
+      - -DCMAKE_INSTALL_PREFIX=/app
+      - -DWL_INSTALL_BINDIR=/app/bin
       - -DWL_INSTALL_BASEDIR=/app/share/widelands
       - -DWL_INSTALL_DATADIR=/app/share/widelands
-      - -DBOOST_ROOT=/app
       - -DGLEW_ROOT=/app
       - -DGLEW_INCLUDE_DIR=/app/include/GL
       # Fix an issue with linking libs
       # https://www.widelands.org/forum/topic/1343/?page=3#post-9857
       - -DGLEW_LIBRARY:FILEPATH=/app/lib/libGLEW.a
+      # cmake ignores CPLUS_INCLUDE_PATH where Asio is installed
+      - -DCMAKE_INCLUDE_PATH=/app/include
       - -DOPENGL_glu_LIBRARY=/app/lib/libGLU.a
-      - -DOPTION_BUILD_WEBSITE_TOOLS=OFF
     build-options:
       ldflags: -lGL
-    sources:
-      - type: archive
-        url: https://github.com/widelands/widelands/archive/v1.0.tar.gz
-        sha256: 1dab0c4062873cc72c5e0558f9e9620b0ef185f1a78923a77c4ce5b9ed76031a
-
-      # Fix issues with xdg/org.widelands.Widelands.appdata.xml:
-      #  * Remove old releases from the AppData file, because
-      #    appstream-glib is broken, and the file does not pass validation
-      #    https://github.com/hughsie/appstream-glib/pull/272#issuecomment-439812546
-      #  * Remove the binary from provides, because flatpak doesn't export it.
-      - type: patch
-        path: appdata_stub.patch
-      # use appstream-util instead of appstreamcli to validate file
-      # (appstream-util is available in freedesktop.org runtime,
-      # appstreamcli would be an extra dependency)
-      - type: patch
-        path: appstream-util.patch
-      # regenerate appdata.xml with the fixes
-      - type: shell
-        commands:
-        - |
-          utils/update_appdata.py
 
