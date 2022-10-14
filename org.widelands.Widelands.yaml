@@ -1,11 +1,12 @@
 app-id: org.widelands.Widelands
 default-branch: beta
 runtime: org.freedesktop.Platform
-runtime-version: '22.08'
+# version 22.08 has too many problems for Widelands
+runtime-version: '21.08'
 sdk: org.freedesktop.Sdk
-# SDK 22.08 has GCC 12.1 wich was a beta release, so we use clang instead
-sdk-extensions:
-  - org.freedesktop.Sdk.Extension.llvm14
+# For compiling with clang:
+#sdk-extensions:
+#  - org.freedesktop.Sdk.Extension.llvm14
 command: widelands
 desktop-file-name-suffix: ' (Beta)'
 tags:
@@ -59,8 +60,8 @@ modules:
         WL_RELEASE_DATE: 2022-09-22
 
         # Use clang instead of GCC
-        CC:  /usr/lib/sdk/llvm14/bin/clang
-        CXX: /usr/lib/sdk/llvm14/bin/clang++
+        #CC:  /usr/lib/sdk/llvm14/bin/clang
+        #CXX: /usr/lib/sdk/llvm14/bin/clang++
 
       ldflags: -lGL
     sources:
