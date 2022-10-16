@@ -66,14 +66,14 @@ modules:
       ldflags: -lGL
     sources:
       # Use this for development versions:
-      - type: git
-        url: https://github.com/widelands/widelands.git
-        commit: 40450cc8d7f01452bcadee370a1289fd5538d926
+      # - type: git
+      #   url: https://github.com/widelands/widelands.git
+      #   commit: 40450cc8d7f01452bcadee370a1289fd5538d926
 
       # Use this for RC:
-      # - type: archive
-      #   url: https://github.com/widelands/widelands/archive/refs/tags/v1.0-rc1.tar.gz
-      #   sha256: e6e85c9daef451ab99cfbbfb9480eef6fddc51728d7283d13ae151d524293322
+      - type: archive
+        url: https://github.com/widelands/widelands/archive/refs/tags/v1.1-rc1.tar.gz
+        sha256: c949d5d03e468ff422e683af40aabedef4597197338463b5d83973c980819eff
 
       - type: shell
         commands:
