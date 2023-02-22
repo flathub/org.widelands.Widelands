@@ -56,8 +56,8 @@ modules:
         # This is needed to set the version string without
         # 'disable-shallow-clone: true'
         # (use utils/detect_revision.py in a complete git tree to get it)
-        WL_VERSION: 1.2~git26011 (3571958@master)
-        WL_RELEASE_DATE: 2023-01-07
+        WL_VERSION: 1.2~git26062 (a951b44@master)
+        WL_RELEASE_DATE: 2023-02-22
 
         # Use clang instead of GCC
         #CC:  /usr/lib/sdk/llvm14/bin/clang
@@ -68,7 +68,7 @@ modules:
       # Use this for development versions:
       - type: git
         url: https://github.com/widelands/widelands.git
-        commit: 3571958f8f45132bfcf691e0087117ccf1cb603d
+        commit: a951b44fe9c46f9b125294dbea7065788dcaccb9
 
       # Use this for RC:
       # - type: archive
