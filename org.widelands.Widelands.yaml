@@ -35,8 +35,8 @@ modules:
   - name: asio
     sources:
       - type: archive
-        url: https://downloads.sourceforge.net/project/asio/asio/1.24.0%20%28Stable%29/asio-1.24.0.tar.bz2
-        sha256: 8976812c24a118600f6fcf071a20606630a69afe4c0abee3b0dea528e682c585
+        url: https://downloads.sourceforge.net/project/asio/asio/1.26.0%20%28Stable%29/asio-1.26.0.tar.bz2
+        sha256: 858320108a0dfc6504cc1b3403182de8ccda1fb8f1c8a4e980e4cb03a11db34d
     # This is to skip the 'make' step (building the examples), because
     # I couldn't figure out how to do it using the default buildsystem
     buildsystem: simple
@@ -56,8 +56,8 @@ modules:
         # This is needed to set the version string without
         # 'disable-shallow-clone: true'
         # (use utils/detect_revision.py in a complete git tree to get it)
-        WL_VERSION: 1.2~git26062 (a951b44@master)
-        WL_RELEASE_DATE: 2023-02-22
+        WL_VERSION: 1.2~git26082 (fa28389@master)
+        WL_RELEASE_DATE: 2023-03-20
 
         # Use clang instead of GCC
         #CC:  /usr/lib/sdk/llvm14/bin/clang
@@ -68,7 +68,7 @@ modules:
       # Use this for development versions:
       - type: git
         url: https://github.com/widelands/widelands.git
-        commit: a951b44fe9c46f9b125294dbea7065788dcaccb9
+        commit: fa28389bbc59399159f971247c522278f541f6c0
 
       # Use this for RC:
       # - type: archive
