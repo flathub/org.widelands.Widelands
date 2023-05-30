@@ -68,7 +68,7 @@ modules:
       # Use this for development versions:
       - type: git
         url: https://github.com/widelands/widelands.git
-        commit: fa28389bbc59399159f971247c522278f541f6c0
+        commit: 16b8c5495fb31ab7314d13404db3654318f7036f
 
       # Use this for RC:
       # - type: archive
