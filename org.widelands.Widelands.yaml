@@ -1,8 +1,7 @@
 app-id: org.widelands.Widelands
 default-branch: beta
 runtime: org.freedesktop.Platform
-# version 22.08 has too many problems for Widelands
-runtime-version: '21.08'
+runtime-version: '23.08beta'
 sdk: org.freedesktop.Sdk
 # For compiling with clang:
 #sdk-extensions:
