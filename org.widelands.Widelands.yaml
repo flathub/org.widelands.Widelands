@@ -83,13 +83,14 @@ modules:
           # Modify xdg/org.widelands.Widelands.appdata.xml.stub:
           #  * Set version
           #  * Remove the binary from provides, because flatpak doesn't export it
-          ed xdg/org.widelands.Widelands.appdata.xml.stub <<EOF
-          /<releases>/a
+          cat >edit_appdata.sed <<EOF
+          /<releases>/a \\
               <release date="${WL_RELEASE_DATE}" version="${WL_VERSION}"/>
-          .
           /<binary>/d
-          wq
           EOF
+          sed -f edit_appdata.sed <xdg/org.widelands.Widelands.appdata.xml.stub >appdata.stub.edited
+          mv appdata.stub.edited xdg/org.widelands.Widelands.appdata.xml.stub
+          rm edit_appdata.sed
 
           # Regenerate appdata.xml with the changes
           utils/update_appdata.py
