@@ -52,11 +52,10 @@ modules:
   - name: Widelands
     build-options:
       env:
-        # This is needed to set the version string without
-        # 'disable-shallow-clone: true'
+        # This is needed to set the version string for development versions
+        # without 'disable-shallow-clone: true'
         # (use utils/detect_revision.py in a complete git tree to get it)
         WL_VERSION: 1.2~git26360 (ddfa8b6@protected/navalwarfare)
-        WL_RELEASE_DATE: 2023-08-14
 
         # Use clang instead of GCC
         #CC:  /usr/lib/sdk/llvm14/bin/clang
@@ -77,8 +76,19 @@ modules:
       - type: shell
         commands:
         - |
+          # Check versions in manifest
+          if [ "$(echo "$WL_VERSION" | sed -E 's/.*\(([0-9a-f]{7})@.*/\1/')" != \
+               "$(git show --abbrev=7 --no-patch --format='%h')" ]
+          then
+            echo "ERROR: Mismatch of commit hash and WL_VERSION in manifest!"
+            exit 1;
+          fi
+
           # Set version string
           echo "$WL_VERSION" >WL_RELEASE
+
+          # Get release date from git
+          WL_RELEASE_DATE="$(date --date="$(git show --no-patch --format='%cI')" --utc '+%Y-%m-%d')"
 
           # Modify xdg/org.widelands.Widelands.appdata.xml.stub:
           #  * Set version
