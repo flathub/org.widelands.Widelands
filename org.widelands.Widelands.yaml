@@ -55,7 +55,8 @@ modules:
         # This is needed to set the version string for development versions
         # without 'disable-shallow-clone: true'
         # (use utils/detect_revision.py in a complete git tree to get it)
-        WL_VERSION: 1.2~git26360 (ddfa8b6@protected/navalwarfare)
+        ## deliberate mismatch for testing
+        WL_VERSION: 1.2~git26360 (01234ab@protected/navalwarfare)
 
         # Use clang instead of GCC
         #CC:  /usr/lib/sdk/llvm14/bin/clang
