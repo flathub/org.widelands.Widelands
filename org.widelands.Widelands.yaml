@@ -55,7 +55,7 @@ modules:
         # This is needed to set the version string for development versions
         # without 'disable-shallow-clone: true'
         # (use utils/detect_revision.py in a complete git tree to get it)
-        WL_VERSION: 1.2~git26395 (7b7b190@protected/navalwarfare)
+        WL_VERSION: 1.2~git26437 (df1a5b4@protected/navalwarfare)
 
         # Use clang instead of GCC
         #CC:  /usr/lib/sdk/llvm14/bin/clang
@@ -66,7 +66,7 @@ modules:
       # Use this for development versions:
       - type: git
         url: https://github.com/widelands/widelands.git
-        commit: 7b7b1902a1e92a8ba7257698015b000281445952
+        commit: df1a5b474531d0d0f70241c25699b227e23a4a54
 
       # Use this for RC:
       # - type: archive
@@ -103,14 +103,15 @@ modules:
           rm edit_appdata.sed
 
           # Regenerate appdata.xml with the changes
-          utils/update_appdata.py
+          utils/update_appdata.py --nonet
 
     buildsystem: cmake-ninja
     builddir: true
     config-opts:
       - -DCMAKE_BUILD_TYPE=Release
       - -DOPTION_BUILD_WEBSITE_TOOLS=OFF
-      - -DCMAKE_INSTALL_PREFIX=/app
+      # flatpak-builder-lint says this is redundant, but keep it for reference
+      # -DCMAKE_INSTALL_PREFIX=/app
       - -DWL_INSTALL_BINDIR=/app/bin
       - -DWL_INSTALL_BASEDIR=/app/share/widelands
       - -DWL_INSTALL_DATADIR=/app/share/widelands
