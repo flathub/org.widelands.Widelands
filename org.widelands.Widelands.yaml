@@ -55,7 +55,7 @@ modules:
         # This is needed to set the version string for development versions
         # without 'disable-shallow-clone: true'
         # (use utils/detect_revision.py in a complete git tree to get it)
-        WL_VERSION: 1.2~git26537 (aa32f79@protected/navalwarfare)
+        WL_VERSION: 1.2~git26530 (e058662@master)
 
         # Use clang instead of GCC
         #CC:  /usr/lib/sdk/llvm14/bin/clang
@@ -66,7 +66,7 @@ modules:
       # Use this for development versions:
       - type: git
         url: https://github.com/widelands/widelands.git
-        commit: aa32f790f79316b752763df40de9bdf83e6d37ca
+        commit: e058662c90381ac7dc549e0bafde3890111d776d
 
       # Use this for RC:
       # - type: archive
