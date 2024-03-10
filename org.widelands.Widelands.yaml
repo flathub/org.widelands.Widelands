@@ -29,6 +29,11 @@ modules:
       - type: archive
         url: https://downloads.sourceforge.net/project/asio/asio/1.24.0%20%28Stable%29/asio-1.24.0.tar.bz2
         sha256: 8976812c24a118600f6fcf071a20606630a69afe4c0abee3b0dea528e682c585
+        x-checker-data:
+          type: anitya
+          project-id: 117
+          stable-only: true
+          url-template: http://downloads.sourceforge.net/asio/asio-$version.tar.bz2
     # This is to skip the 'make' step (building the examples), because
     # I couldn't figure out how to do it using the default buildsystem
     buildsystem: simple
@@ -38,11 +43,6 @@ modules:
         # error handling of GNU 'install'
         ./configure --prefix=${FLATPAK_DEST}
         make install-data
-    x-checker-data:
-      type: anitya
-      project-id: 117
-      stable-only: true
-      url-template: http://downloads.sourceforge.net/asio/asio-$version.tar.bz2
 
   ####### Widelands #######
 
@@ -52,10 +52,10 @@ modules:
         url: https://github.com/widelands/widelands/archive/refs/tags/v1.1.tar.gz
         sha256: 6853fcf3daec9b66005691e5bcb00326634baf0985ad89a7e6511502612f6412
         x-checker-data:
-          type: json
-          url: https://api.github.com/repos/widelands/widelands/tags
-          version-query: .[0].name
-          url-query: .[0].zipball_url
+          type: anitya
+          project-id: 8622
+          stable-only: true
+          url-template: https://github.com/widelands/widelands/archive/refs/tags/v$version.tar.gz
 
       - type: shell
         commands:
