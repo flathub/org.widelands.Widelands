@@ -36,6 +36,12 @@ modules:
       - type: archive
         url: https://downloads.sourceforge.net/project/asio/asio/1.28.0%20%28Stable%29/asio-1.28.0.tar.bz2
         sha256: d0ddc2361abd2f4c823e970aaf8e28b4b31ab21b1a68af16b114fc093661e232
+        x-checker-data:
+          type: anitya
+          project-id: 117
+          stable-only: true
+          url-template: http://downloads.sourceforge.net/asio/asio-$version.tar.bz2
+
     # This is to skip the 'make' step (building the examples), because
     # I couldn't figure out how to do it using the default buildsystem
     buildsystem: simple
