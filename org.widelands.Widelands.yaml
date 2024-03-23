@@ -1,7 +1,6 @@
 app-id: org.widelands.Widelands
 runtime: org.freedesktop.Platform
-# version 22.08 has too many problems for Widelands
-runtime-version: '21.08'
+runtime-version: '23.08'
 sdk: org.freedesktop.Sdk
 command: widelands
 finish-args:
@@ -28,8 +27,8 @@ modules:
   - name: asio
     sources:
       - type: archive
-        url: https://downloads.sourceforge.net/project/asio/asio/1.24.0%20%28Stable%29/asio-1.24.0.tar.bz2
-        sha256: 8976812c24a118600f6fcf071a20606630a69afe4c0abee3b0dea528e682c585
+        url: https://downloads.sourceforge.net/project/asio/asio/1.28.0%20%28Stable%29/asio-1.28.0.tar.bz2
+        sha256: d0ddc2361abd2f4c823e970aaf8e28b4b31ab21b1a68af16b114fc093661e232
     # This is to skip the 'make' step (building the examples), because
     # I couldn't figure out how to do it using the default buildsystem
     buildsystem: simple
@@ -46,28 +45,31 @@ modules:
   - name: Widelands
     sources:
       - type: archive
-        url: https://github.com/widelands/widelands/archive/refs/tags/v1.1.tar.gz
-        sha256: 6853fcf3daec9b66005691e5bcb00326634baf0985ad89a7e6511502612f6412
+        url: https://github.com/widelands/widelands/archive/refs/tags/v1.2.tar.gz
+        sha256: ????????????????????????????????????????????????????????????????
 
       - type: shell
         commands:
         - |
           # Modify xdg/org.widelands.Widelands.appdata.xml.stub:
           #  * Remove the binary from provides, because flatpak doesn't export it
-          ed xdg/org.widelands.Widelands.appdata.xml.stub <<EOF
+          cat >edit_appdata.sed <<EOF
           /<binary>/d
-          wq
           EOF
+          sed -f edit_appdata.sed <xdg/org.widelands.Widelands.appdata.xml.stub >appdata.stub.edited
+          mv appdata.stub.edited xdg/org.widelands.Widelands.appdata.xml.stub
+          rm edit_appdata.sed
 
           # Regenerate appdata.xml with the changes
-          utils/update_appdata.py
+          utils/update_appdata.py --nonet
 
     buildsystem: cmake-ninja
     builddir: true
     config-opts:
       - -DCMAKE_BUILD_TYPE=Release
       - -DOPTION_BUILD_WEBSITE_TOOLS=OFF
-      - -DCMAKE_INSTALL_PREFIX=/app
+      # flatpak-builder-lint says this is redundant, but keep it for reference
+      # -DCMAKE_INSTALL_PREFIX=/app
       - -DWL_INSTALL_BINDIR=/app/bin
       - -DWL_INSTALL_BASEDIR=/app/share/widelands
       - -DWL_INSTALL_DATADIR=/app/share/widelands
