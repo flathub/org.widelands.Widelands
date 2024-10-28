@@ -1,7 +1,7 @@
 app-id: org.widelands.Widelands
 default-branch: beta
 runtime: org.freedesktop.Platform
-runtime-version: '23.08'
+runtime-version: '24.08'
 sdk: org.freedesktop.Sdk
 # For compiling with clang:
 #sdk-extensions:
@@ -34,8 +34,8 @@ modules:
   - name: asio
     sources:
       - type: archive
-        url: https://downloads.sourceforge.net/project/asio/asio/1.28.0%20%28Stable%29/asio-1.28.0.tar.bz2
-        sha256: d0ddc2361abd2f4c823e970aaf8e28b4b31ab21b1a68af16b114fc093661e232
+        url: https://downloads.sourceforge.net/project/asio/asio/1.30.2%20%28Stable%29/asio-1.30.2.tar.bz2
+        sha256: 9f12cef05c0477eace9c68ccabd19f9e3a04b875d4768c323714cbd3a5fa3c2b
     # This is to skip the 'make' step (building the examples), because
     # I couldn't figure out how to do it using the default buildsystem
     buildsystem: simple
@@ -55,7 +55,7 @@ modules:
         # This is needed to set the version string for development versions
         # without 'disable-shallow-clone: true'
         # (use utils/detect_revision.py in a complete git tree to get it)
-        # WL_VERSION: 1.2~rc1
+        WL_VERSION: 1.2.1~git26608 (bb5b517@release-1.2)
 
         # Use clang instead of GCC
         #CC:  /usr/lib/sdk/llvm16/bin/clang
@@ -64,37 +64,31 @@ modules:
       ldflags: -lGL
     sources:
       # Use this for development versions:
-      # - type: git
-      #   url: https://github.com/widelands/widelands.git
-      #   commit: 9ee4139c8d8a070461f3adbd2efbfce5002229f1
+      - type: git
+        url: https://github.com/widelands/widelands.git
+        commit: bb5b517c3fa94f2a1c9e90511a03065ca164deda
 
       # Use this for RC:
-      - type: archive
-        url: https://github.com/widelands/widelands/archive/refs/tags/v1.2-rc1.tar.gz
-        sha256: 62044bfd21a60e3a6cd9dfdf4d39891b327017afc76b363518ec3408e60a4b70
+      # - type: archive
+      #   url: https://github.com/widelands/widelands/archive/refs/tags/v1.2-rc1.tar.gz
+      #   sha256: 62044bfd21a60e3a6cd9dfdf4d39891b327017afc76b363518ec3408e60a4b70
 
       - type: shell
         commands:
         - |
           # Check versions in manifest
-          # if [ "$(echo "$WL_VERSION" | sed -E 's/.*\(([0-9a-f]{7})@.*/\1/')" != \
-          #      "$(git show --abbrev=7 --no-patch --format='%h')" ]
-          # Not for RC
-          if false
+          if [ "$(echo "$WL_VERSION" | sed -E 's/.*\(([0-9a-f]{7})@.*/\1/')" != \
+               "$(git show --abbrev=7 --no-patch --format='%h')" ]
           then
             echo "ERROR: Mismatch of commit hash and WL_VERSION in manifest!"
             exit 1;
           fi
 
           # Set version string
-          # echo "$WL_VERSION" >WL_RELEASE
-          # RC already has version in WL_RELEASE file
-          WL_VERSION="$(cat WL_RELEASE)"
+          echo "$WL_VERSION" >WL_RELEASE
 
           # Get release date from git
-          # WL_RELEASE_DATE="$(date --date="$(git show --no-patch --format='%cI')" --utc '+%Y-%m-%d')"
-          # RC uses archive, not git
-          WL_RELEASE_DATE=2024-03-23
+          WL_RELEASE_DATE="$(date --date="$(git show --no-patch --format='%cI')" --utc '+%Y-%m-%d')"
 
           # Modify xdg/org.widelands.Widelands.appdata.xml.stub:
           #  * Set version
