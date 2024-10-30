@@ -81,7 +81,7 @@ modules:
         - |
           SANITY_WARNING="Exactly one of WL_VERSION or WL_RELEASE_DATE must be set."
 
-          if [ -n "$WL_RELEASE_DATE" ]
+          if [ -z "$WL_RELEASE_DATE" ]
           then
             if [ -z "$WL_VERSION" ]
             then
