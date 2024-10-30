@@ -58,7 +58,7 @@ modules:
         # WL_VERSION: 1.2.1~rc1
 
         # We have to set this manually for RC versions:
-        WL_RELEASE_DATE=2024-10-30
+        WL_RELEASE_DATE: 2024-10-30
 
         # Use clang instead of GCC
         #CC:  /usr/lib/sdk/llvm16/bin/clang
