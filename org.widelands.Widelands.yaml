@@ -55,10 +55,10 @@ modules:
         # This is needed to set the version string for development versions
         # without 'disable-shallow-clone: true'
         # (use utils/detect_revision.py in a complete git tree to get it)
-        # WL_VERSION: 1.2.1~rc1
+        # WL_VERSION: 1.2.1~rc2
 
         # We have to set this manually for RC versions:
-        WL_RELEASE_DATE: 2024-10-30
+        WL_RELEASE_DATE: 2024-11-10
 
         # Use clang instead of GCC
         #CC:  /usr/lib/sdk/llvm16/bin/clang
@@ -73,8 +73,8 @@ modules:
 
       # Use this for RC:
       - type: archive
-        url: https://github.com/widelands/widelands/archive/refs/tags/v1.2.1-rc1.tar.gz
-        sha256: e6693b470514b831f3cd433872870a2da7eeb74d227e32f3da9f3a94ccf48301
+        url: https://github.com/widelands/widelands/archive/refs/tags/v1.2.1-rc2.tar.gz
+        sha256: 187dc471feca35a5688a947e0357a32a1cdd70b77efe4398e3f347dd53ad0f17
 
       - type: shell
         commands:
