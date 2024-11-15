@@ -11,9 +11,11 @@ desktop-file-name-suffix: ' (Beta)'
 tags:
   - beta
 finish-args:
+  # wayland
+  - --socket=wayland
+  - --env=SDL_VIDEODRIVER=wayland,x11
   # X11 + XShm access
   - --share=ipc
-  - --socket=wayland
   - --socket=fallback-x11
   # Play sounds
   - --socket=pulseaudio
@@ -42,7 +44,7 @@ modules:
     buildsystem: simple
     build-commands:
       - |
-        # This all could be just a 'cp -a', but let's have the advanced
+        # This all could be just a 'cp -a', but let's have the better
         # error handling of GNU 'install'
         ./configure --prefix=${FLATPAK_DEST}
         make install-data
