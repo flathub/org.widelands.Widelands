@@ -53,14 +53,6 @@ modules:
   - name: Widelands
     build-options:
       env:
-        # This is needed to set the version string for development versions
-        # without 'disable-shallow-clone: true'
-        # (use utils/detect_revision.py in a complete git tree to get it)
-        WL_VERSION: 1.3~git26793 (f7ddfcf@master)
-
-        # We have to set this manually for RC versions:
-        # WL_RELEASE_DATE: 2024-11-10
-
         # Use clang instead of GCC
         #CC:  /usr/lib/sdk/llvm16/bin/clang
         #CXX: /usr/lib/sdk/llvm16/bin/clang++
@@ -71,7 +63,6 @@ modules:
       - type: git
         url: https://github.com/widelands/widelands.git
         commit: f7ddfcf72dc15104cba1da9bec04aa3a363258ba
-        disable-shallow-clone: false
 
       # Use this for RC:
       # - type: archive
@@ -81,48 +72,11 @@ modules:
       - type: shell
         commands:
         - |
-          SANITY_WARNING="Exactly one of WL_VERSION or WL_RELEASE_DATE must be set."
+          # Get version string (needs the full git history)
+          WL_VERSION="$(utils/detect_revision.py)"
 
-          if [ -z "$WL_RELEASE_DATE" ]
-          then
-            if [ -z "$WL_VERSION" ]
-            then
-              echo "$SANITY_WARNING"
-              exit 1
-            fi
-
-            # Development version
-
-            # Check versions in manifest
-            if [ "$(echo "$WL_VERSION" | sed -E 's/.*\(([0-9a-f]{7})@.*/\1/')" != \
-                 "$(git show --abbrev=7 --no-patch --format='%h')" ]
-            then
-              echo "ERROR: Mismatch of commit hash and WL_VERSION in manifest!"
-              exit 1;
-            fi
-
-            # Set version string
-            echo "$WL_VERSION" >WL_RELEASE
-
-            # Get release date from git
-            WL_RELEASE_DATE="$(date --date="$(git show --no-patch --format='%cI')" --utc '+%Y-%m-%d')"
-
-          else
-            if [ -n "$WL_VERSION" ]
-            then
-              echo "$SANITY_WARNING"
-              exit 1
-            fi
-
-            if [ -f WL_RELEASE ]
-            then
-              # RC version
-              WL_VERSION="$(cat WL_RELEASE)"
-            else
-              echo "ERROR: WL_RELEASE is not set and WL_VERSION file is not found!"
-              exit 1
-            fi
-          fi
+          # Get release date from git
+          WL_RELEASE_DATE="$(date --date="$(git show --no-patch --format='%cI')" --utc '+%Y-%m-%d')"
 
           # Modify xdg/org.widelands.Widelands.appdata.xml.stub:
           #  * Set version
