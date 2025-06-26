@@ -133,10 +133,10 @@ modules:
           s/<release version="1.3~git">/<release date="${WL_RELEASE_DATE}" version="${WL_VERSION}">/
           /<binary>/d
           EOF
-          sed -if edit_metainfo.sed <xdg/org.widelands.Widelands.metainfo.xml
+          sed -if edit_metainfo.sed xdg/org.widelands.Widelands.metainfo.xml
 
           # Validate metainfo.xml with the changes
-          appstream-util validate-relax --nonet xdg/org.widelands.Widelands.metainfo.xml
+          appstreamcli validate --no-net xdg/org.widelands.Widelands.metainfo.xml
 
     buildsystem: cmake-ninja
     builddir: true
