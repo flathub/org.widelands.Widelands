@@ -126,19 +126,17 @@ modules:
             fi
           fi
 
-          # Modify xdg/org.widelands.Widelands.appdata.xml.stub:
+          # Modify xdg/org.widelands.Widelands.metainfo.xml:
           #  * Set version
           #  * Remove the binary from provides, because flatpak doesn't export it
-          cat >edit_appdata.sed <<EOF
+          cat >edit_metainfo.sed <<EOF
           s/<release version="1.3~git">/<release date="${WL_RELEASE_DATE}" version="${WL_VERSION}">/
           /<binary>/d
           EOF
-          sed -f edit_appdata.sed <xdg/org.widelands.Widelands.appdata.xml.stub >appdata.stub.edited
-          mv appdata.stub.edited xdg/org.widelands.Widelands.appdata.xml.stub
-          rm edit_appdata.sed
+          sed -if edit_metainfo.sed <xdg/org.widelands.Widelands.metainfo.xml
 
-          # Regenerate appdata.xml with the changes
-          utils/update_appdata.py --nonet
+          # Validate metainfo.xml with the changes
+          appstream-util validate-relax --nonet xdg/org.widelands.Widelands.metainfo.xml
 
     buildsystem: cmake-ninja
     builddir: true
