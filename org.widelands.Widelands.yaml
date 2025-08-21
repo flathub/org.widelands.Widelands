@@ -38,8 +38,8 @@ modules:
   - name: asio
     sources:
       - type: archive
-        url: https://downloads.sourceforge.net/project/asio/asio/1.30.2%20%28Stable%29/asio-1.30.2.tar.bz2
-        sha256: 9f12cef05c0477eace9c68ccabd19f9e3a04b875d4768c323714cbd3a5fa3c2b
+        url: https://downloads.sourceforge.net/project/asio/asio/1.36.0%20%28Stable%29/asio-1.36.0.tar.bz2
+        sha256: 7bf4dbe3c1ccd9cc4c94e6e6be026dcc2110f9201d286bb9500dc85d69825524
     # This is to skip the 'make' step (building the examples), because
     # I couldn't figure out how to do it using the default buildsystem
     buildsystem: simple
