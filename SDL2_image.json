@@ -1,15 +1,12 @@
 {
     "name": "SDL2_image",
-    "config-opts": [
-        "--disable-static"
-    ],
     "cleanup": [
         "/include",
-        "/lib/cmake",
-        "/lib/pkgconfig",
-        "*.la",
-        "*.a"
+        "/lib64/cmake",
+        "/lib64/pkgconfig"
     ],
+    "buildsystem": "cmake-ninja",
+    "builddir": true,
     "sources": [
         {
             "type": "archive",
