@@ -1,7 +1,7 @@
 app-id: org.widelands.Widelands
 default-branch: beta
 runtime: org.freedesktop.Platform
-runtime-version: '25.08beta'
+runtime-version: '25.08'
 sdk: org.freedesktop.Sdk
 # For compiling with clang:
 #sdk-extensions:
@@ -32,10 +32,10 @@ cleanup:
   - '*.la'
   - '*.a'
 modules:
-  - shared-modules/glu/glu-9.json
-  - shared-modules/glew/glew.json
   - SDL2_image.json
   - SDL2_ttf.json
+  - shared-modules/glu/glu-9.json
+  - shared-modules/glew/glew.json
 
   - name: asio
     sources:
