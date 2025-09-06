@@ -1,9 +1,13 @@
 {
     "name": "SDL2_image",
+    "config-opts": [
+        "-DSDL2IMAGE_DEPS_SHARED=OFF",
+        "-DSDL2IMAGE_STRICT=ON"
+    ],
     "cleanup": [
         "/include",
-        "/lib64/cmake",
-        "/lib64/pkgconfig"
+        "/lib/cmake",
+        "/lib/pkgconfig"
     ],
     "buildsystem": "cmake-ninja",
     "builddir": true,
