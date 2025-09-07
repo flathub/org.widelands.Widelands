@@ -32,8 +32,8 @@ cleanup:
   - '*.la'
   - '*.a'
 modules:
-  - SDL2_image.json
-  - SDL2_ttf.json
+  - shared-modules/SDL2/SDL2_image.json
+  - shared-modules/SDL2/SDL2_ttf.json
   - shared-modules/glu/glu-9.json
   - shared-modules/glew/glew.json
 
