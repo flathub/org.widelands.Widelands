@@ -83,10 +83,13 @@ modules:
       #   url: https://github.com/widelands/widelands/archive/refs/tags/v1.2.1-rc2.tar.gz
       #   sha256: 187dc471feca35a5688a947e0357a32a1cdd70b77efe4398e3f347dd53ad0f17
 
+      - type: file
+        path: check_and_update_version.sh
+        dest: utils
       - type: shell
         commands:
         - |
-          ./check_and_update_version.sh
+          utils/check_and_update_version.sh
 
     buildsystem: cmake-ninja
     builddir: true
