@@ -1,16 +1,20 @@
 app-id: org.widelands.Widelands
 runtime: org.freedesktop.Platform
-runtime-version: '24.08'
+runtime-version: '25.08'
 sdk: org.freedesktop.Sdk
 command: widelands
 finish-args:
+  # wayland
+  - --socket=wayland
+  - --env=SDL_VIDEODRIVER=wayland,x11
   # X11 + XShm access
   - --share=ipc
-  - --socket=x11
+  - --socket=fallback-x11
   # Play sounds
   - --socket=pulseaudio
   # Needs to talk to the network
   - --share=network
+  # Persistent storage only under ~/.var/app/org.widelands.Widelands/.widelands
   - --persist=.widelands
   # OpenGL access
   - --device=dri
@@ -21,20 +25,22 @@ cleanup:
   - '*.la'
   - '*.a'
 modules:
+  - shared-modules/SDL2/SDL2_image.json
+  - shared-modules/SDL2/SDL2_ttf.json
   - shared-modules/glu/glu-9.json
   - shared-modules/glew/glew.json
 
   - name: asio
     sources:
       - type: archive
-        url: https://downloads.sourceforge.net/project/asio/asio/1.30.2%20%28Stable%29/asio-1.30.2.tar.bz2
-        sha256: 9f12cef05c0477eace9c68ccabd19f9e3a04b875d4768c323714cbd3a5fa3c2b
+        url: https://downloads.sourceforge.net/project/asio/asio/1.36.0%20%28Stable%29/asio-1.36.0.tar.bz2
+        sha256: 7bf4dbe3c1ccd9cc4c94e6e6be026dcc2110f9201d286bb9500dc85d69825524
     # This is to skip the 'make' step (building the examples), because
     # I couldn't figure out how to do it using the default buildsystem
     buildsystem: simple
     build-commands:
       - |
-        # This all could be just a 'cp -a', but let's have the advanced
+        # This all could be just a 'cp -a', but let's have the better
         # error handling of GNU 'install'
         ./configure --prefix=${FLATPAK_DEST}
         make install-data
@@ -45,23 +51,18 @@ modules:
   - name: Widelands
     sources:
       - type: archive
-        url: https://github.com/widelands/widelands/archive/refs/tags/v1.2.1.tar.gz
-        sha256: 799bfd32048ef20118c48e21f3fc843ae0451c42bb8bf2eabcb9b26bf6fe54b4
+        url: https://github.com/widelands/widelands/archive/refs/tags/v1.3-rc1.tar.gz
+        sha256: ef9c6479c8ba33cd733601b55da00e1b140655b84218cdd0e5c1b0251eafd63d
 
       - type: shell
         commands:
         - |
-          # Modify xdg/org.widelands.Widelands.appdata.xml.stub:
+          # Modify xdg/org.widelands.Widelands.metainfo.xml:
           #  * Remove the binary from provides, because flatpak doesn't export it
-          cat >edit_appdata.sed <<EOF
-          /<binary>/d
-          EOF
-          sed -f edit_appdata.sed <xdg/org.widelands.Widelands.appdata.xml.stub >appdata.stub.edited
-          mv appdata.stub.edited xdg/org.widelands.Widelands.appdata.xml.stub
-          rm edit_appdata.sed
+          sed '/<binary>/d' -i xdg/org.widelands.Widelands.metainfo.xml
 
-          # Regenerate appdata.xml with the changes
-          utils/update_appdata.py --nonet
+          # Validate metainfo.xml with the changes
+          appstreamcli validate --no-net xdg/org.widelands.Widelands.metainfo.xml
 
     buildsystem: cmake-ninja
     builddir: true
