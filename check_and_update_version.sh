@@ -57,5 +57,9 @@ sed -e 's/<release.* version="1.3~git">'/"${WL_RELEASE_STRING}"/ \
     -i xdg/org.widelands.Widelands.metainfo.xml
 
 # Validate metainfo.xml with the changes
-appstreamcli validate --no-net xdg/org.widelands.Widelands.metainfo.xml
-
+if which appstreamcli >/dev/null
+then
+  appstreamcli validate --no-net xdg/org.widelands.Widelands.metainfo.xml
+else
+  echo 'Cannot validate modified metainfo.xml, appstreamcli not found'
+fi
