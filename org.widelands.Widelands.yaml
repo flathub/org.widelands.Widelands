@@ -1,11 +1,11 @@
 app-id: org.widelands.Widelands
 default-branch: beta
 runtime: org.freedesktop.Platform
-runtime-version: '25.08'
+runtime-version: '26.08beta'
 sdk: org.freedesktop.Sdk
 # For compiling with clang:
 #sdk-extensions:
-#  - org.freedesktop.Sdk.Extension.llvm16
+#  - org.freedesktop.Sdk.Extension.llvm22
 command: widelands
 desktop-file-name-suffix: ' (Beta)'
 tags:
@@ -32,7 +32,9 @@ cleanup:
   - '*.la'
   - '*.a'
 modules:
-  - shared-modules/SDL2/SDL2_image.json
+  # - shared-modules/SDL2/SDL2_image.json
+  - test/SDL2_image.json
+  - test/SDL2_mixer.json
   - shared-modules/SDL2/SDL2_ttf.json
   - shared-modules/glu/glu-9.json
   - shared-modules/glew/glew.json
@@ -67,8 +69,8 @@ modules:
         # WL_RELEASE_DATE: 2026-02-15
 
         # Use clang instead of GCC
-        #CC:  /usr/lib/sdk/llvm16/bin/clang
-        #CXX: /usr/lib/sdk/llvm16/bin/clang++
+        #CC:  /usr/lib/sdk/llvm22/bin/clang
+        #CXX: /usr/lib/sdk/llvm22/bin/clang++
 
       ldflags: -lGL
     sources:
