@@ -1,7 +1,7 @@
 app-id: org.widelands.Widelands
 default-branch: beta
 runtime: org.freedesktop.Platform
-runtime-version: '26.08beta'
+runtime-version: '26.08'
 sdk: org.freedesktop.Sdk
 # For compiling with clang:
 #sdk-extensions:
@@ -63,7 +63,7 @@ modules:
         # This is needed to set the version string for development versions
         # without 'disable-shallow-clone: true'
         # (use utils/detect_revision.py in a complete git tree to get it)
-        WL_VERSION: 1.4~git27293 (7c5655c@master)
+        WL_VERSION: 1.4~git27304 (9eda74f@master)
 
         # We have to set this manually for RC versions:
         # WL_RELEASE_DATE: 2026-02-15
@@ -77,7 +77,7 @@ modules:
       # Use this for development versions:
       - type: git
         url: https://github.com/widelands/widelands.git
-        commit: 7c5655c2243068b7af96bdba855e74476a817092
+        commit: 9eda74fe964be9cbba3c8989851ed9746d52a029
 
       # Use this for RC:
       # - type: archive

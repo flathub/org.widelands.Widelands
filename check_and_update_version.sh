@@ -52,7 +52,7 @@ WL_RELEASE_STRING+='">'
 # Modify xdg/org.widelands.Widelands.metainfo.xml:
 #  * Set version
 #  * Remove the binary from provides, because flatpak doesn't export it
-sed -e 's/<release.* version="1.3~git">'/"${WL_RELEASE_STRING}"/ \
+sed -e 's/<release.* version="1.[0-9]*~git">'/"${WL_RELEASE_STRING}"/ \
     -e "/<binary>/d" \
     -i xdg/org.widelands.Widelands.metainfo.xml
 
